@@ -8,9 +8,9 @@ public abstract class BankAccount
 	static int nextAccNum;
 	
 	//Fields
-	String name;
-	int accNum;
-	double balance;
+	private String name;
+	private int accNum;
+	private double balance;
 	
 	//Constructors
 	public BankAccount(String n)
@@ -27,15 +27,15 @@ public abstract class BankAccount
 	}
 	
 	//Methods
-	public void Deposit(double amt) 
+	public void deposit(double amt) 
 	{
 		balance += amt;
 	}
-	public void Withdraw(double amt)
+	public void withdraw(double amt)
 	{
 		balance -= amt;
 	}
-	public String GetName()
+	public String getName()
 	{
 		return name;
 	}
@@ -46,8 +46,8 @@ public abstract class BankAccount
 	public abstract void endOfMonthUpdate();
 	public void trasnfer(BankAccount other, double amt)
 	{
-		Withdraw(amt);
-		other.Deposit(amt);
+		withdraw(amt);
+		other.deposit(amt);
 	}
 	public String toString()
 	{
