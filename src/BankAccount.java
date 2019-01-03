@@ -18,12 +18,14 @@ public abstract class BankAccount
 		name = n;
 		accNum = nextAccNum;
 		balance = 0;
+		nextAccNum++;
 	}
 	public BankAccount(String n, double b)
 	{
 		name = n;
 		accNum = nextAccNum;
 		balance = b;
+		nextAccNum++;
 	}
 	
 	//Methods

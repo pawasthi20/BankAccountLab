@@ -3,72 +3,75 @@
  * @author pawasthi20
  *
  */
-public abstract class CheckingAccount extends BankAccount
+public class CheckingAccount extends BankAccount
 {
-	double OVER_DRAFT_FEE;
-	double TRANSACTION_FEE;
-	double FREE_TRANS;
+	final double OVER_DRAFT_FEE;
+	final double TRANSACTION_FEE;
+	final double FREE_TRANS;
 	
 	//Fields
 	private int numTransactions;
 	
 	//Constructors
-	public checkingAccount(String n, double b, double odf, double tf, int freeTrans)
+	public CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
 	{
-		name = n;
-		balance = b;
+		super(n, b);
 		OVER_DRAFT_FEE = odf;
 		TRANSACTION_FEE = tf;
 		FREE_TRANS = freeTrans;
 	}
-	public checkingAccount(String n, double odf, double tf, int freeTrans)
+	public CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
-		String name = n;
-		double balance = 0;
+		super(n);
 		OVER_DRAFT_FEE = odf;
 		FREE_TRANS = freeTrans;
 		TRANSACTION_FEE = tf;
 	}
 	
 	//Methods
-	public void Deposit(double amt, double balance) 
+	public void Deposit(double amt) 
 	{
-		if(getBalance() <= 0)
+		if(amt < 0 || (numTransactions >= FREE_TRANS && amt < TRANSACTION_FEE))
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
-			balance += amt;
-			balance -= TRANSACTION_FEE;
+			super.deposit(amt);
+			if(numTransactions >= FREE_TRANS) super.withdraw(TRANSACTION_FEE);
 			numTransactions++;
 		}
 	}
 	public void withdraw(double amt)
 	{
-		if(getBalance() <= 0)
+		if(amt < 0 || getBalance() < 0)
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
 			super.withdraw(amt);
+			if(numTransactions >= FREE_TRANS) super.withdraw(TRANSACTION_FEE);
+			if(getBalance() < 0) super.withdraw(OVER_DRAFT_FEE);
 			numTransactions++;
 		}
 	}
 	public void trasnfer(BankAccount other, double amt)
 	{
-		if (getName().equals(other.getName()))
+		double lFee = 0;
+		if(numTransactions >= FREE_TRANS) lFee = TRANSACTION_FEE;
+		
+		if (getName().equals(other.getName()) && getBalance() >= (amt + lFee))
 		{
-			withdraw(amt);
-			other.deposit(amt);
+			super.trasnfer(other, amt);
+			super.withdraw(lFee);
 		}
 		else
 		{
 			throw new IllegalArgumentException();
 		}
 	}
-	public abstract void endOfMonthUpdate();
+	public void endOfMonthUpdate()
 	{
 		numTransactions = 0;
 	}

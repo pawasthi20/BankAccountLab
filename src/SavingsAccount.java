@@ -7,8 +7,8 @@ public class SavingsAccount extends BankAccount
 {
 	//Fields
 	private double intRate;
-	private double MIN_BAL;
-	private double MIN_BAL_FEE;
+	final double MIN_BAL;
+	final double MIN_BAL_FEE;
 	
 	//Constructors
 	public SavingsAccount(String n, double b, double r, double mb, double mbf)
@@ -29,34 +29,45 @@ public class SavingsAccount extends BankAccount
 	//Methods
 	public void withdraw(double amt)
 	{
-		if(getBalance() <= 0)
+		double lFee = 0;
+		if(getBalance() - amt < MIN_BAL)
+		{
+			lFee = MIN_BAL_FEE;
+		}				
+		if(amt < 0 || getBalance() - (amt + lFee) < 0)
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
-			balance -= amt;
-			balance -= MIN_BAL_FEE;
+			super.withdraw(amt);
+			super.withdraw(lFee);
 		}
 	}
 	public void trasnfer(BankAccount other, double amt)
 	{
-		if (getName().equals(other.getName()))
+		double lFee = 0;
+		if(getBalance() - amt < MIN_BAL)
 		{
-			withdraw(amt);
-			other.deposit(amt);
+			lFee = MIN_BAL_FEE;
 		}
-		else
+		if(getBalance() - (amt + lFee) < 0 || !getName().equals(other.getName()) || amt < 0)
 		{
 			throw new IllegalArgumentException();
 		}
+		else
+		{
+			super.trasnfer(other, amt);
+			super.withdraw(lFee);
+
+		}	
 	}
 	public void addInterest()
 	{
-		Object balance = balance + (intRate*balance);
+		super.deposit(intRate * getBalance());
 	}
 	public void endOfMonthUpdate()
 	{
-		balance.addInterest();
+		addInterest();
 	}
 } 

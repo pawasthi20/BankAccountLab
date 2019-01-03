@@ -22,6 +22,7 @@ public class Main
 		int MIN_BAL_FEE = 10;
 		int FREE_TRANSACTIONS = 10;
 		
+		//loop
 		System.out.println("Would you like to add an account, make a transaction, or terminate the program?");
 		in.nextLine();
 	}
