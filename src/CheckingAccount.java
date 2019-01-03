@@ -38,7 +38,10 @@ public class CheckingAccount extends BankAccount
 		else
 		{
 			super.deposit(amt);
-			if(numTransactions >= FREE_TRANS) super.withdraw(TRANSACTION_FEE);
+			if(numTransactions >= FREE_TRANS) 
+			{
+				super.withdraw(TRANSACTION_FEE);
+			}
 			numTransactions++;
 		}
 	}
@@ -51,15 +54,24 @@ public class CheckingAccount extends BankAccount
 		else
 		{
 			super.withdraw(amt);
-			if(numTransactions >= FREE_TRANS) super.withdraw(TRANSACTION_FEE);
-			if(getBalance() < 0) super.withdraw(OVER_DRAFT_FEE);
+			if(numTransactions >= FREE_TRANS) 
+			{
+				super.withdraw(TRANSACTION_FEE);
+			}
+			if(getBalance() < 0) 
+			{
+				super.withdraw(OVER_DRAFT_FEE);
+			}
 			numTransactions++;
 		}
 	}
 	public void trasnfer(BankAccount other, double amt)
 	{
 		double lFee = 0;
-		if(numTransactions >= FREE_TRANS) lFee = TRANSACTION_FEE;
+		if(numTransactions >= FREE_TRANS) 
+		{
+			lFee = TRANSACTION_FEE;
+		}
 		
 		if (getName().equals(other.getName()) && getBalance() >= (amt + lFee))
 		{
