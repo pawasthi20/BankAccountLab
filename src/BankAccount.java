@@ -31,10 +31,15 @@ public abstract class BankAccount
 	//Methods
 	public void deposit(double amt) 
 	{
+		if(amt < 0 )
+		{
+			throw new IllegalArgumentException();
+		}
 		balance += amt;
 	}
 	public void withdraw(double amt)
 	{
+		
 		balance -= amt;
 	}
 	public String getName()
@@ -45,8 +50,12 @@ public abstract class BankAccount
 	{
 		return balance;
 	}
+	public int getAccNum()
+	{
+		return accNum;
+	}
 	public abstract void endOfMonthUpdate();
-	public void trasnfer(BankAccount other, double amt)
+	public void transfer(BankAccount other, double amt)
 	{
 		withdraw(amt);
 		other.deposit(amt);

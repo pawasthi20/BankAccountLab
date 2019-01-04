@@ -29,14 +29,16 @@ public class CheckingAccount extends BankAccount
 	}
 	
 	//Methods
-	public void Deposit(double amt) 
+	public void deposit(double amt) 
 	{
+		//System.out.println("debug dep: " + numTransactions + "-" + FREE_TRANS);
 		if(amt < 0 || (numTransactions >= FREE_TRANS && amt < TRANSACTION_FEE))
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
+			
 			super.deposit(amt);
 			if(numTransactions >= FREE_TRANS) 
 			{
@@ -54,6 +56,7 @@ public class CheckingAccount extends BankAccount
 		else
 		{
 			super.withdraw(amt);
+			//System.out.println("debug withdraw with: " + numTransactions + "-" + FREE_TRANS + "-" + getBalance() + " -" + amt);
 			if(numTransactions >= FREE_TRANS) 
 			{
 				super.withdraw(TRANSACTION_FEE);
@@ -65,7 +68,7 @@ public class CheckingAccount extends BankAccount
 			numTransactions++;
 		}
 	}
-	public void trasnfer(BankAccount other, double amt)
+	public void transfer(BankAccount other, double amt)
 	{
 		double lFee = 0;
 		if(numTransactions >= FREE_TRANS) 
@@ -75,8 +78,10 @@ public class CheckingAccount extends BankAccount
 		
 		if (getName().equals(other.getName()) && getBalance() >= (amt + lFee))
 		{
-			super.trasnfer(other, amt);
+			super.transfer(other, amt);
 			super.withdraw(lFee);
+			//System.out.println("debug xfer: " + numTransactions + "-" + FREE_TRANS);
+			numTransactions++;
 		}
 		else
 		{

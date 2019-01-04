@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BankAccountTest 
+public class Test 
 {
 
 	public static void main(String[] args) 
@@ -132,6 +132,7 @@ public class BankAccountTest
 		}
 		
 		accounts.get(0).withdraw(50);
+		
 		if(accounts.get(0).getBalance() != 99)
 		{
 			System.out.println("transaction fee line 119");

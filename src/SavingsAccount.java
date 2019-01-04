@@ -34,8 +34,9 @@ public class SavingsAccount extends BankAccount
 		{
 			lFee = MIN_BAL_FEE;
 		}				
-		if(amt < 0 || getBalance() - (amt + lFee) < 0)
+		if(amt < 0 || (getBalance() - amt) < 0)
 		{
+			//System.out.println("debug:" + getBalance() + " " + " " + amt + " " + lFee);
 			throw new IllegalArgumentException();
 		}
 		else
@@ -44,22 +45,21 @@ public class SavingsAccount extends BankAccount
 			super.withdraw(lFee);
 		}
 	}
-	public void trasnfer(BankAccount other, double amt)
+	public void transfer(BankAccount other, double amt)
 	{
 		double lFee = 0;
 		if(getBalance() - amt < MIN_BAL)
 		{
 			lFee = MIN_BAL_FEE;
 		}
-		if(getBalance() - (amt + lFee) < 0 || !getName().equals(other.getName()) || amt < 0)
+		if(getBalance() - (amt) < 0 || !getName().equals(other.getName()) || amt < 0)
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
-			super.trasnfer(other, amt);
+			super.transfer(other, amt);
 			super.withdraw(lFee);
-
 		}	
 	}
 	public void addInterest()
