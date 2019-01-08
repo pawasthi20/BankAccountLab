@@ -36,7 +36,6 @@ public class SavingsAccount extends BankAccount
 		}				
 		if(amt < 0 || (getBalance() - amt) < 0)
 		{
-			//System.out.println("debug:" + getBalance() + " " + " " + amt + " " + lFee);
 			throw new IllegalArgumentException();
 		}
 		else

@@ -51,20 +51,19 @@ public class Main
 						System.out.println("Invalid entry. Please retry");
 	            		break;
 					}
-					
             		System.out.println("Type 1 checking or 2 for savings account");
 					input2 = in.nextLine();
-    				if(input2.equals("1"))
+    				if (input2.equals("1"))
     				{
     					CheckingAccount newAccount = new CheckingAccount(name, intBal, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS);
     					BankAccounts.add(newAccount);
-    					System.out.println("Successfully added account: " + newAccount.toString());
+    					System.out.println("Successfully added checking account: " + newAccount.toString());
     				}
     				else if (input2.equals("2"))
     				{
     					SavingsAccount newAccount = new SavingsAccount(name, intBal, RATE, MIN_BAL, MIN_BAL_FEE);
     					BankAccounts.add(newAccount);
-    					System.out.println("Successfully added account: " + newAccount.toString());
+    					System.out.println("Successfully added savings account: " + newAccount.toString());
     				}
     				else
     				{
@@ -82,7 +81,6 @@ public class Main
 						//Withdraw
 						case "1":
 							BankAccount foundAccount = GetAccount(BankAccounts);							
-
 						    if (foundAccount != null)
 						    {
 						    	System.out.println("Enter withdrawal amount:");
@@ -106,50 +104,51 @@ public class Main
 				            		break;
 								}
 								System.out.println("Successfully withdrawn. New balance: " + foundAccount.toString());
-						    } else {
+						    } 
+						    else 
+						    {
 						    	System.out.println("Account not found. Please retry");
 						    }		    	
 							break;
 						//Deposit
 						case "2":
 							BankAccount foundAccount1 = GetAccount(BankAccounts);							
-
 						    if (foundAccount1 != null)
 						    {							
-							    	System.out.println("Enter deposit amount:");
-									input2 = in.nextLine();
-									if (isNumeric(input2))
-									{
-										intBal = Double.valueOf(input2);
-									}
-									else
-									{
-										System.out.println("Invalid entry. Please retry");
-					            		break;
-									}
-									try
-									{
-										foundAccount1.deposit(intBal);
-									}
-									catch(IllegalArgumentException e)
-									{
-										System.out.println("Transaction not authorized. Please retry");
-					            		break;
-									}
-									System.out.println("Successfully deposited. New balance: " + foundAccount1.toString());
-						    } else {
+						    	System.out.println("Enter deposit amount:");
+								input2 = in.nextLine();
+								if (isNumeric(input2))
+								{
+									intBal = Double.valueOf(input2);
+								}
+								else
+								{
+									System.out.println("Invalid entry. Please retry");
+						        	break;
+								}
+								try
+								{
+									foundAccount1.deposit(intBal);
+								}
+								catch(IllegalArgumentException e)
+								{
+									System.out.println("Transaction not authorized. Please retry");
+				            		break;
+								}
+								System.out.println("Successfully deposited. New balance: " + foundAccount1.toString());
+						    } 
+						    else 
+						    {
 						    	System.out.println("Account not found. Please retry");
 						    }
 							break;
 						//Transfer
 						case "3":
 							BankAccount foundAccount2 = GetAccount(BankAccounts);							
-
 						    if (foundAccount2 != null)
 						    {	
 						    	System.out.println("Enter account the target number now.");
 						    	BankAccount foundAccount3 = GetAccount(BankAccounts);							
-
 							    if (foundAccount3 != null)
 							    {
 							    	System.out.println("Enter transfer amount:");
@@ -174,10 +173,14 @@ public class Main
 									}
 									System.out.println("Successfully withdrawn. New balance: " + foundAccount2.toString());
 									System.out.println("Successfully deposited. New balance: " + foundAccount3.toString());
-							    } else {
+							    } 
+							    else 
+							    {
 							    	System.out.println("Target Account not found. Please retry");
 							    }
-						    } else {
+						    }
+						    else 
+						    {
 						    	System.out.println("Account not found. Please retry");
 						    }
 							break;	
@@ -191,39 +194,40 @@ public class Main
 					}	
 					break;
             	case "3":
-            		System.out.println("Thanks for using the system. Good-bye.");
+            		System.out.println("Cya later.");
     				break;
             	default: 
             		System.out.println("Invalid entry. Please retry");
             		break;
-      
 			}		
 		}
 		in.close();
-	}	
+	}
+	
+	//Methods
 	private static boolean isNumeric(String str)
 	{
 		try
-			{
-				Double.parseDouble(str);
-				return true;
-			}
+		{
+			Double.parseDouble(str);
+			return true;
+		}
 		catch(IllegalArgumentException e)
-			{
-				return false;
-			}
+		{
+			return false;
+		}
 	}
 	private static boolean isint(String str)
 	{
 		try
-			{
-				Integer.parseInt(str);
-				return true;
-			}
+		{
+			Integer.parseInt(str);
+			return true;
+		}
 		catch(IllegalArgumentException e)
-			{
-				return false;
-			}
+		{
+			return false;
+		}
 	}
 	private static BankAccount GetAccount(ArrayList <BankAccount> pBankAccounts)
 	{
@@ -266,17 +270,21 @@ public class Main
 		for(int i=0; i<len; i++) {
 		    if (input2.equalsIgnoreCase(pBankAccounts.get(i).getName()))
 		    {
-		    	//System.out.println("name: " + pBankAccounts.get(i).getName() + input2);
-		    	if (pBankAccounts.get(i) instanceof CheckingAccount) {
-				  System.out.println("Successfully found checking account: " + pBankAccounts.get(i).toString());
-				  found = true;
+		    	if (pBankAccounts.get(i) instanceof CheckingAccount) 
+		    	{
+		    		System.out.println("Successfully found checking account: " + pBankAccounts.get(i).toString());
+		    		found = true;
 		    	}
-		    	else {
+		    	else 
+		    	{
 		    		System.out.println("Successfully found saving account: " + pBankAccounts.get(i).toString());
 		    		found = true;
 		    	}
 		    }	
 		}
-		if (!found) System.out.println("Account not found for this name. Please retry");
+		if (!found)
+		{
+			System.out.println("Account not found for this name. Please retry");
+		}
 	}	
 }
