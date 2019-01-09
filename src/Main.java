@@ -205,6 +205,11 @@ public class Main
 	}
 	
 	//Methods
+	/**
+	 * @param str
+	 * @return true
+	 * @return false
+	 */
 	private static boolean isNumeric(String str)
 	{
 		try
@@ -217,6 +222,11 @@ public class Main
 			return false;
 		}
 	}
+	/**
+	 * @param str
+	 * @return true
+	 * return false
+	 */
 	private static boolean isint(String str)
 	{
 		try
@@ -229,13 +239,17 @@ public class Main
 			return false;
 		}
 	}
+	/**
+	 * @param pBankAccounts
+	 * @return null
+	 * @return pBankAccounts.get(i);
+	 */
 	private static BankAccount GetAccount(ArrayList <BankAccount> pBankAccounts)
 	{
 		int accNum = 0;
 		Scanner in = new Scanner(System.in);
 		System.out.println("Enter account number:");
 		String input2 = in.nextLine();
-		//in.close();
 		if (isint(input2))
 		{
 			accNum = Integer.valueOf(input2);
@@ -254,13 +268,15 @@ public class Main
 	    }
 		return null;	
 	}
+	/**
+	 * @param pBankAccounts
+	 */
 	private static void GetAccountbyName(ArrayList <BankAccount> pBankAccounts)
 	{
 		Scanner in = new Scanner(System.in);
 		boolean found = false;
 		System.out.println("Enter accountholder's name:");
 		String input2 = in.nextLine();
-		//in.close();
 		if (input2.isEmpty())
 		{
 			System.out.println("Empty entry. Please retry");

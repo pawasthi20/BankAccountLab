@@ -29,6 +29,9 @@ public class CheckingAccount extends BankAccount
 	}
 	
 	//Methods
+	/**
+	 * @param amt
+	 */
 	public void deposit(double amt) 
 	{
 		if(amt < 0 || (numTransactions >= FREE_TRANS && amt < TRANSACTION_FEE))
@@ -36,8 +39,7 @@ public class CheckingAccount extends BankAccount
 			throw new IllegalArgumentException();
 		}
 		else
-		{
-			
+		{		
 			super.deposit(amt);
 			if(numTransactions >= FREE_TRANS) 
 			{
@@ -46,6 +48,9 @@ public class CheckingAccount extends BankAccount
 			numTransactions++;
 		}
 	}
+	/**
+	 * @param amt
+	 */
 	public void withdraw(double amt)
 	{
 		if(amt < 0 || getBalance() < 0)
@@ -66,6 +71,10 @@ public class CheckingAccount extends BankAccount
 			numTransactions++;
 		}
 	}
+	/**
+	 * @param other
+	 * @param amt
+	 */
 	public void transfer(BankAccount other, double amt)
 	{
 		double lFee = 0;

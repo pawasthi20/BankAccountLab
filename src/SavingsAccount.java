@@ -27,6 +27,9 @@ public class SavingsAccount extends BankAccount
 	}
 	
 	//Methods
+/**
+ * 
+ */
 	public void withdraw(double amt)
 	{
 		double lFee = 0;
@@ -44,6 +47,10 @@ public class SavingsAccount extends BankAccount
 			super.withdraw(lFee);
 		}
 	}
+	/**
+	 * @param other
+	 * @param amt
+	 */
 	public void transfer(BankAccount other, double amt)
 	{
 		double lFee = 0;
